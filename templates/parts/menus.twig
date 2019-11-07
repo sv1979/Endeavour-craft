@@ -1,0 +1,59 @@
+{% set navlinks_level_1 = craft.entries()
+    .section('menuItems')
+    .level('1')
+    .hasDescendants()
+    .all() %}
+
+{% set navlinks_level_2 = craft.entries()
+    .section('menuItems')
+    .level('2')
+    .all() %}
+
+{% for oneLink in navlinks_level_1 %}
+<div id="{{oneLink.slug}}" class="menubox">
+    <div class="nav-heading">
+        <a href="{{oneLink.linkDestination|length ? oneLink.linkDestination.one().url : '#'}}">
+            <h2>{{oneLink.linkText}}</h2>
+        </a>
+        <span class="popup-close"><img src="../images/point-left.svg" alt="">Back</span>
+    </div>
+
+    <div class="tab-image-links">
+        {% for twoLink in oneLink.children().level(2) %}
+        {% set linkImage = twoLink.linkImage|length ? twoLink.linkImage.one().url : '#' %}
+        {% if twoLink.hasDescendants() %}
+        <a data-sub-open="{{twoLink.slug}}" class="image-link">
+            <div class="thumbnail" style="background-image: url({{linkImage}})"></div>
+            <h4>{{twoLink.linkText}}</h4>
+        </a>
+        {% else %}
+        <a href="{{twoLink.linkDestination|length ? twoLink.linkDestination.one().url : '#'}}" class="image-link">
+            <div class="thumbnail" style="background-image: url({{linkImage}})"></div>
+            <h4>{{twoLink.linkText}}</h4>
+        </a>
+        {% endif %}
+        {% endfor %}
+    </div>
+</div>
+{% endfor %}
+
+{% for oneLink in navlinks_level_2 %}
+<div id="{{oneLink.slug}}" class="menubox">
+    <div class="nav-heading">
+        <h2>{{oneLink.linkText}}</h2>
+        <span class="back">
+            <img src="../images/point-left.svg" alt="">
+            Back</span>
+    </div>
+    <div class="tab-image-links">
+        {% for twoLink in oneLink.descendants %}
+        {% set linkImage = twoLink.linkImage|length ? twoLink.linkImage.one().url : '#' %}
+
+        <a href="{{twoLink.linkDestination|length ? twoLink.linkDestination.one().url : '#'}}" class="image-link">
+            <div class="thumbnail" style="background-image: url({{linkImage}})"></div>
+            <h4>{{twoLink.linkText}}</h4>
+        </a>
+        {% endfor %}
+    </div>
+</div>
+{% endfor %}

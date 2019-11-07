@@ -1,20 +1,47 @@
+{% set metaTitle = 'Endeavour Property Services' %}
+{% if pageTitle is defined %}
+{% set metaTitle = metaTitle ~ ' | ' ~ pageTitle %}
+{% endif %}
+
+{% set metaDescription = 'Endeavour Property Services' %}
+{% if pageDescription is defined %}
+{% set metaDescription = pageDescription %}
+{% endif %}
+
+{% set activeLink = '' %}
+{% if active_link is defined %}
+{% set activeLink = active_link %}
+{% endif %}
+
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    {% do view.registerCssFile("@web/assets/dist/app.css") %}
-    <title>Hello, world!</title>
-  </head>
-  <body>
-    {% include('parts/header') %}
 
-    {% block content %}{% endblock %}
-    {% block subcontent %}{% endblock %}
-    {% block subcontent2 %}{% endblock %}
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  {% do view.registerCssFile("@web/assets/dist/app.css") %}
+  <title>{{metaTitle}}</title>
+  <meta name="description" content="{{metaDescription}}">
+</head>
 
-    {% include('parts/footer') %}
+<body>
+  <div class="site-wrap">
+    {% include('parts/body-nav')%}
+    <div class="push-wrap">
+      {% include('parts/header') with { 'activeLink': activeLink } %}
 
-    {% do view.registerJsFile("@web/assets/dist/app.js") %} 
-  </body>
+      {% block content %}{% endblock %}
+
+      {% include('parts/footer') %}
+
+      {% include('parts/popups') %}
+    </div>
+  </div>
+  
+  
+
+  <script src="https://player.vimeo.com/api/player.js"></script>
+  {% do view.registerJsFile("@web/assets/dist/app.js") %}
+</body>
+
 </html>

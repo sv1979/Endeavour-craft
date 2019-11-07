@@ -1,0 +1,46 @@
+<footer>
+    <div class="main">
+        <div class="lg-container">
+            <div class="row">
+                <div class="col-12 col-lg-3 order-lg-1">
+                    <div class="footer-header">
+                        <img class="logo-colour" src="images/logo-white.svg" alt="">
+                        <div class="social-media">
+                            <a href="https://www.facebook.com/pg/epservicesnz/reviews/" target="_blank"><img
+                                    src="images/fb.svg" alt=""></a>
+                            <a href="https://nz.linkedin.com/company/endeavour-property-services" target="_blank"><img
+                                    src="images/linkedin.svg" alt=""></a>
+                            <a href="https://www.nocowboys.co.nz/businesses/endeavour-property-services"
+                                target="_blank"><img src="images/nocowboys.svg" alt=""></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 col-lg-3 order-lg-2">
+                    <h3>Contact</h3>
+                    <ul>
+                        <li><a href="tel:{{ contactData.phoneNumber|replace({' ': '', '(':'', ')': ''}) }}">{{contactData.phoneNumber}}</a></li>
+                        <li><a href="mailto:{{contactData.emailAddress}}">{{contactData.emailAddress}}</a></li>
+                    </ul>
+                    {{contactData.postalAddress}}
+                </div>
+                <div class="col-6 col-lg-3 order-lg-4">
+                    <h3>About Us</h3>
+                    {{ craft.olivemenus.getMenuHTML('footerMenuAbout') }}
+                </div>
+                <div class="col-12 col-lg-3 order-lg-3">
+                    <h3>Services</h3>
+                    {{ craft.olivemenus.getMenuHTML('footerMenuServices') }}
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+<div class="credits">
+    <div class="credits-container">
+        <p>Copyright © 2019 Endeavour Property Services</p>
+        <a href="https://fabricdigital.co.nz/" class="fabric">
+            <p>Website by</p>
+            <div class="fabric-logo"></div>
+        </a>
+    </div>
+</div>

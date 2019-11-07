@@ -1,0 +1,65 @@
+{% set navlinks_level_1 = craft.entries()
+    .section('menuItems')
+    .level('1')
+    .all() %}
+
+{% set navlinks_level_2 = craft.entries()
+    .section('menuItems')
+    .level('2')
+    .hasDescendants()
+    .all() %}
+
+<div id="body-nav" class="mobile-menu">
+    <div class="mobile-wrapper">
+        <div class="mobile_menu_container">
+            {% for oneLink in navlinks_level_1 %}
+            <div class="mobile_head {{oneLink.slug}}">
+                <a href="{{oneLink.linkDestination|length ? oneLink.linkDestination.one().url : '#'}}">{{oneLink.linkText}}</a>
+                {% if oneLink.hasDescendants() %}
+                <span data-slug="{{oneLink.slug}}">+</span>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+
+        {% for oneLink in navlinks_level_1 %}
+        {% if oneLink.hasDescendants() %}
+        <div class="mobile_body" style="display:none;" data-menu="{{oneLink.slug}}">
+            <div class="select">
+                <h3>{{oneLink.header|striptags}}</h3>
+                <span><img src="../images/point-left.svg" alt="">Back</span>
+            </div>
+            <ul class="sub-menu">
+                {% for twoLink in oneLink.descendants %}
+                {% if twoLink.hasDescendants() %}
+                <li rel="{{twoLink.slug}}">{{twoLink.linkText}}</li>
+                {% else %}
+                <li>
+                    <a href="{{twoLink.linkDestination|length ? twoLink.linkDestination.one().url : '#'}}">{{twoLink.linkText}}</a>
+                </li>
+                {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+        {% endfor %}
+
+        {% for oneLink in navlinks_level_2 %}
+        <div class="mobile_body" style="display:none;" id="{{oneLink.slug}}">
+            <div class="select">
+                <h3>{{oneLink.header|striptags}}</h3>
+                <span><img src="../images/point-left.svg" alt="">Back</span>
+            </div>
+            <ul class="sub-menu">
+                {% for twoLink in oneLink.descendants %}
+                    <li>
+                        <a href="{{twoLink.linkDestination|length ? twoLink.linkDestination.one().url : '#'}}">{{twoLink.linkText}}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endfor %}
+
+        <a class="phone" href="tel:{{ contactData.phoneNumber|replace({' ': '', '(':'', ')': ''}) }}">{{ contactData.phoneNumber }}</a>
+    </div>
+</div>

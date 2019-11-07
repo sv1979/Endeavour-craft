@@ -1,0 +1,40 @@
+<!-- Menu Dropdown -->
+<div class="popup">
+    <div class="popup-inner">
+        <div id="tab-wrapper">
+            {% include('parts/menus') %}
+        </div>
+        <div class="pseudo-fade"></div>
+    </div>
+    <div class="close-form"></div>
+</div>
+<!-- Menu Dropdown ends-->
+<!-- Quote Modal -->
+<div class="modal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-content">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true"><img src="images/close.svg" alt=""></span>
+        </button>
+        <h2 class="heading">Free Quote</h2>
+        <form class="quote-form free">
+
+            <div class="input-row">
+                <input type="text" placeholder="Your Name">
+                <input type="text" placeholder="Your Phone">
+            </div>
+            <div class="input-row">
+                <input type="text" placeholder="Your Email">
+                <input type="text" placeholder="Property Address">
+            </div>
+            <select class="custom-select" id="inputGroupSelect01">
+                <option selected disabled>Select your Services</option>
+                <option value="1">One</option>
+                <option value="2">Two</option>
+                <option value="3">Three</option>
+            </select>
+            <textarea type="text" rows="1" placeholder="Additional Info"></textarea>
+            <button type="submit" class="green-btn">Submit</button>
+        </form>
+    </div>
+</div>
+<!-- Quote Modal ends -->

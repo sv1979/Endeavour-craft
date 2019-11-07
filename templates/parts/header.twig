@@ -1,0 +1,37 @@
+<div class="mobile-header scroll">
+    <a href="/" class="logo"></a>
+    <div class="nav-buttons">
+        <a class="green-btn show-modal" data-toggle="modal" data-target="#myModal">Free quote</a>
+        <div class="nav-icon toggle-nav"></div>
+    </div>
+</div>
+<header>
+
+{% set navlinks_level_1 = craft.entries()
+    .section('menuItems')
+    .level('1')
+    .useOnlyOnMobile('not 1')
+    .all() %}
+
+    <div class="max-width">
+        <a href="/" class="logo"></a>
+        <div class="desktop-links">
+            <ul class="desktop-nav">
+                {% for oneLink in navlinks_level_1 %}
+                    <li class="dropdwn">
+                        {% set className = oneLink.desktopDropdown == 1 ? 'dropbtn' : 'dropdown' %}
+                        <a class="{{className}}" 
+                        {% if (className == 'dropdown') %}
+                        href="{{oneLink.linkDestination|length ? oneLink.linkDestination.one().url : '#'}}"
+                        {% endif %}
+                        >{{oneLink.linkText}}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+            <div class="modal-buttons">
+                <a class="outline-btn" href="tel:{{ contactData.phoneNumber|replace({' ': '', '(':'', ')': ''}) }}">{{contactData.phoneNumber}}</a>
+                <a class="green-btn" data-toggle="modal" data-target="#myModal">Free quote</a>
+            </div>
+        </div>
+    </div>
+</header>
