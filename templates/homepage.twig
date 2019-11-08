@@ -2,139 +2,65 @@
 {% set bgimage = entry.headerImage|length ? entry.headerImage.one().url : '' %}
 
 {% block content %}
-<div class="relative grey">
-    <div class="landing-image"
-        style="background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url({{bgimage}});">
-        <div class="content">
-            <h1>{{entry.header|striptags}}</h1>
-            <p>{{entry.subheader}}</p>
-        </div>
-    </div>
-    <div class="sm-container absolute">
-        <div class="row">
-            {% for onelink in entry.linkBlocks %}
-            <div class="col-12 col-md-6 col-lg-4">
-                <div class="textbox featured">
-                    <h2 class="heading">{{onelink.heading}}</h2>
-                    <a href="{{onelink.destination|length ? onelink.destination.one().url : '#'}}" class="arrow-link">View Services<span class="arrow"></span></a>
-                </div>
+    <div class="relative grey">
+        <div class="landing-image" style="background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url({{bgimage}});">
+            <div class="content">
+                <h1>{{entry.header|striptags}}</h1>
+                <p>{{entry.subheader}}</p>
             </div>
-            {% endfor %}
         </div>
-    </div>
-    {% if entry.logosSectionImages|length %}
-    <div class="logo-container">
-        <div data-aos="fade-up" data-aos-offset="200" class="sm-container">
-            <h1 class="big-heading">{{entry.logosSectionHeader}}</h1>
+        <div class="sm-container absolute">
             <div class="row">
-                {% for oneimage in entry.logosSectionImages.all() %}
-                <div class="col-6 col-lg-2 order-lg-{{oneimage.orderNumber}}">
-                    <div class="logo" style="background-image: url({{oneimage.url}})"></div>
-                </div>
+                {% for onelink in entry.linkBlocks %}
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <div class="textbox featured">
+                            <h2 class="heading">{{onelink.heading}}</h2>
+                            <a href="{{onelink.destination|length ? onelink.destination.one().url : '#'}}" class="arrow-link">View Services<span class="arrow"></span>
+                            </a>
+                        </div>
+                    </div>
                 {% endfor %}
             </div>
         </div>
-    </div>
-    {% endif %}
-</div>
-<div class="pt-10 pb-10">
-    <div class="container">
-        <div data-aos="fade-up" data-aos-offset="200" class="row align-items-center about-feature">
-            <div class="col-12 col-md-12 col-lg-6 order-lg-2">
-                <h2 class="about-title mobile">Whatever you need, we’ve got it covered</h2>
-                <img src="images/about-right.jpg" alt="">
-            </div>
-            <div class="col-12 col-md-12 col-lg-6 order-lg-1">
-                <div class="about-text">
-                    <h2 class="about-title desktop">Whatever you need,<br> we’ve got it covered</h2>
-                    <p>Looking after you and your property is why we’re here. We believe in turning up and doing the job
-                        right, keeping you in the loop and taking the hassle out of your hands. And you always get one
-                        of us - we’re not passing the
-                        job on to
-                        someone else.</p>
-                    <a href="about.html" class="outline-btn green">About Us</a>
-                </div>
-            </div>
-        </div>
-        <div data-aos="fade-up" data-aos-offset="200" class="row align-items-center about-feature">
-            <div class="col-12 col-md-12 col-lg-6">
-                <h2 class="about-title mobile">Our customers know we get the job done</h2>
-                <img src="images/about-left.jpg" alt="">
-            </div>
-            <div class="col-12 col-md-12 col-lg-6">
-                <div class="about-text lg-right">
-                    <h2 class="about-title desktop">Our customers know we get the job done</h2>
-                    <p>It says a lot that our customers will take the time to review what we do. Top service and a
-                        quality job are important to us, and that’s what you get every time from Endeavour. If you want
-                        some reassurance that we’re the right
-                        choice
-                        for you property, check out how well our customers rate us.</p>
-                    <div class="ratings-container">
-                        <div class="rating" style="background-image: url(images/google-ratings.svg)"></div>
-                        <div class="rating" style="background-image: url(images/nocowboys-ratings.svg)"></div>
+        {% if entry.logosSectionImages|length %}
+            <div class="logo-container">
+                <div data-aos="fade-up" data-aos-offset="200" class="sm-container">
+                    <h1 class="big-heading">{{entry.logosSectionHeader}}</h1>
+                    <div class="row">
+                        {% for oneimage in entry.logosSectionImages.all() %}
+                            <div class="col-6 col-lg-2 order-lg-{{oneimage.orderNumber}}">
+                                <div class="logo" style="background-image: url({{oneimage.url}})"></div>
+                            </div>
+                        {% endfor %}
                     </div>
                 </div>
             </div>
-        </div>
+        {% endif %}
     </div>
-</div>
-<div class="video-container">
-    <div class="sm-container">
-        <h2 class="big-heading">Our philosophy is simple.</h2>
-        <div class="video-thumbnail">
-            <img class="play" src="images/play.svg" alt="Play video">
-            <iframe src="https://player.vimeo.com/video/248066415?title=0&byline=0&portrait=0"
-                style="position:absolute;top:0;left:0;width:100%;height:100%;" frameborder="0"
-                allow="autoplay; fullscreen" allowfullscreen></iframe>
-            <div class="thumbnail" style="background-image: url(images/thumbnail.jpg)"></div>
-        </div>
-    </div>
-</div>
-<div class="pt-10 pb-10 form">
-    <div class="sm-container">
-        <h2 class="big-heading black">Arrange your Free Professional
-            Assessment and Quote</h2>
-        <div class="tab-bg">
-            <div class="tabs">
-                <label class="radio-container">Get a Quote
-                    <input type="radio" checked="checked" rel="tab1" name="radio">
-                    <span class="checkmark"></span>
-                </label>
-                <label class="radio-container">Request a callback
-                    <input type="radio" rel="tab2" name="radio">
-                    <span class="checkmark"></span>
-                </label>
-            </div>
-            <div class="tab_container">
-                <div id="tab1" class="tab_content">
-                    <form class="quote-form">
-                        <input type="text" placeholder="Your Name">
-                        <div class="input-row">
-                            <input type="text" placeholder="Email">
-                            <input type="text" placeholder="Phone Number">
-                        </div>
-                        <div class="input-row">
-                            <input type="text" placeholder="Property Address">
-                            <input type="text" placeholder="Services you require">
-                        </div>
-                        <button type="submit" class=" outline-btn green">Submit</button>
-                    </form>
-                </div>
-                <div id="tab2" class="tab_content">
-                    <form class="callback-form">
-                        <div class="input-row">
-                            <input type="text" placeholder="Your Name">
-                            <input type="text" placeholder="Phone Number">
-                        </div>
-                        <div class="input-row">
-                            <input type="text" placeholder="Property Address">
-                            <input type="text" placeholder="Services you require">
-                        </div>
-                        <button type="submit" class=" outline-btn green">Submit</button>
-                    </form>
-                </div>
+    {% if entry.contentBlock|length %}
+        <div class="pt-10 pb-10">
+            <div class="container">
+                {% for oneblock in entry.contentBlock %}
+                    {% include('parts/contentblock') with { 'oneblock': oneblock } %}
+                {% endfor %}
             </div>
         </div>
-    </div>
-</div>
+    {% endif %}
+
+    {% if ( entry.videoIframeCode != '' and entry.videoThumbnail|length )%}
+        {% include('parts/videosection') with 
+            {
+            'iframecode': entry.videoIframeCode,
+            'thumbnail':entry.videoThumbnail.one().url,
+            'heading': entry.videoSectionHeader 
+            }
+          %}
+    {% endif %}
+
+    {% if entry.bottomFormType == 'type1' %}
+        {% include('parts/bottomFormType1') %}
+    {% else %}
+        {% include('parts/bottomFormType2') %}
+    {% endif %}
+
 {% endblock %}

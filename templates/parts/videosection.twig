@@ -1,0 +1,13 @@
+
+<div class="video-container">
+    <div class="sm-container">
+        {% if heading != '' %}
+        <h2 class="big-heading">{{heading}}</h2>
+        {% endif %}
+        <div class="video-thumbnail">
+            <img class="play" src="images/play.svg" alt="Play video">
+            <iframe src="{{iframecode}}" style="position:absolute;top:0;left:0;width:100%;height:100%;" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+            <div class="thumbnail" style="background-image: url({{thumbnail}})"></div>
+        </div>
+    </div>
+</div>

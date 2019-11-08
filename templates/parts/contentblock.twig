@@ -1,0 +1,33 @@
+{% set blockImage = oneblock.blockImage|length ? oneblock.blockImage.one().url : '' %}
+{% set multipleImages = oneblock.blockImage|length > 1 ? oneblock.blockImage.all() : [] %}
+{% set rightImage = oneblock.imagePosition == 'right' ? true : false %}
+
+<div data-aos="fade-up" data-aos-offset="200" class="row align-items-center about-feature">
+    <div class="col-12 col-md-12 col-lg-6 {{ rightImage ? 'order-lg-2' : '' }}">
+        {% if (oneblock.heading != '') %}
+            <h2 class="about-title mobile">{{ oneblock.heading }}</h2>
+        {% endif %}
+        {% if multipleImages|length > 1 %}
+            <div class="flex-images ratio-16-9">
+                {% for one_image in multipleImages %}
+                    <div style="background-image: url({{one_image.url}})"></div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <img src="{{blockImage}}" alt="{{ oneblock.heading }}">
+        {% endif %}
+    </div>
+    <div class="col-12 col-md-12 col-lg-6 {{ rightImage ? 'order-lg-1' : '' }}">
+        <div class="about-text {{ rightImage ? '' : 'lg-right' }}">
+            {% if (oneblock.heading != '') %}
+                <h2 class="about-title desktop">{{ oneblock.heading }}</h2>
+            {% endif %}
+
+            {{oneblock.context}}
+
+            {% if (oneblock.linkDestination|length) %}
+                <a href="oneblock.linkDestination.one().url" class="outline-btn green">{{oneblock.linkText}}</a>
+            {% endif %}
+        </div>
+    </div>
+</div>
