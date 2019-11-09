@@ -1,0 +1,38 @@
+<div id="team"></div>
+<div class="pt-10 pb-10">
+    <div class="container">
+        <h2 class="big-heading green">Meet our team of professionals</h2>
+        <div class="team" data-aos="fade-up" data-aos-offset="200">
+            <h4>Executive Team</h4>
+            <div class="grid-container">
+                {% for person in team %}
+                    {% if person.team.value == 'executive' %}
+                        {% set p_image = person.personImage|length ? person.personImage.one().url : '' %}
+
+                        <div class="grid-item">
+                            <div class="profile-img" style="background-image: url({{p_image}})"></div>
+                            <h2>{{person.personName}}</h2>
+                            <p>{{person.position}}</p>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+        <div class="team" data-aos="fade-up" data-aos-offset="200">
+            <h4>Sales Team</h4>
+            <div class="grid-container">
+                {% for person in team %}
+                    {% if person.team.value == 'sales' %}
+                        {% set p_image = person.personImage|length ? person.personImage.one().url : '' %}
+
+                        <div class="grid-item">
+                            <div class="profile-img" style="background-image: url({{p_image}})"></div>
+                            <h2>{{person.personName}}</h2>
+                            <p>{{person.position}}</p>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>

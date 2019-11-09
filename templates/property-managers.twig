@@ -1,0 +1,89 @@
+{% extends "base.twig" %}
+{% set active_link = 'property-managers' %}
+
+{% block content %}
+    <div class="m-body">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="site-heading">
+                        {% if entry.header != '' %}
+                            <h1>
+                                {{entry.header|striptags('<br>')|raw}}
+                            </h1>
+                        {% endif %}
+                        {% if entry.subheader != '' %}
+                            <p>{{entry.subheader|striptags('<br>')|raw}}</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {% if entry.logosSectionImages|length %}
+            <div class="logo-container">
+                <div data-aos="fade-up" data-aos-offset="200" class="sm-container">
+                    <h1 class="big-heading">{{entry.logosSectionHeader}}</h1>
+                    <div class="row">
+                        {% for oneimage in entry.logosSectionImages.all() %}
+                            <div class="col-6 col-lg-2 order-lg-{{oneimage.orderNumber}}">
+                                <div class="logo" style="background-image: url({{oneimage.url}})"></div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+
+        <div class="pt-10">
+            <div class="container">
+                <h2 data-aos="fade-up" data-aos-offset="200" class="heading centered">{{entry.contentText|striptags('<br>')|raw}}</h2>
+                <div class="row">
+                    <div data-aos="fade-up" data-aos-offset="200" class="col-12 col-lg-6 offset-lg-1 order-lg-2">
+                        <div class="accordion-wrapper service-acc">
+                            {% if entry.sectionHeader1 != '' %}
+                                <h2 class="heading">
+                                    {{entry.sectionHeader1|striptags('<br>')|raw}}
+                                </h2>
+                            {% endif %}
+
+                            {% if entry.servicesToDisplay|length %}
+                                {% include('parts/services_accordion') with { 'services':entry.servicesToDisplay } %}
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% if (entry.videoIframeCode != '') %}
+                        {% set v_image = entry.videoThumbnail|length ? entry.videoThumbnail.one().url : '' %}
+                        <div data-aos="fade-up" data-aos-offset="200" class="col-12 col-lg-5 order-lg-1">
+                            {% if entry.videoSectionHeader != '' %}
+                                <h2 class="heading">
+                                    {{entry.videoSectionHeader|striptags('<br>')|raw}}
+                                </h2>
+                            {% endif %}
+                            <div class="video-thumbnail small">
+                                <img class="play" src="images/play.svg" alt="Play video">
+                                <iframe src="{{entry.videoIframeCode}}" style="position:absolute;top:0;left:0;width:100%;height:100%;" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+                                <div class="thumbnail" style="background-image: url({{v_image}})"></div>
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+            {% if entry.portfolioToDisplay|length %}
+                <div data-aos="fade-up" data-aos-offset="200" class="container pt-10">
+                    {% if entry.portfolioSectionHeader != '' %}
+                        <h1 class="big-heading black">{{entry.portfolioSectionHeader|striptags('<br>')|raw}}</h1>
+                    {% endif %}
+
+                    {% include('parts/portfolio_grid') with {'items':entry.portfolioToDisplay} %}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+    {% if entry.bottomFormType == 'type1' %}
+        {% include('parts/bottomFormType1') %}
+    {% else %}
+        {% include('parts/bottomFormType2') %}
+    {% endif %}
+{% endblock %}

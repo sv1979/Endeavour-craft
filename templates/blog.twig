@@ -1,0 +1,79 @@
+{% extends "base.twig" %}
+
+{% block content %}
+    <div class="m-body">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="site-heading">
+                        {% if entry.header != '' %}
+                            <h1>
+                                {{entry.header|striptags('<br>')|raw}}
+                            </h1>
+                        {% endif %}
+                        {% if entry.subheader != '' %}
+                            <p>{{entry.subheader|striptags('<br>')|raw}}</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="pb-10">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="down-container">
+                            <div class="down">
+                                <div class="select">
+                                    <span>All Categories</span>
+                                </div>
+                                <input type="hidden" name="gender">
+                                <ul class="down-menu">
+                                    <li data-filter="all">All Categories</li>
+                                    <li data-filter=".exterior">Exterior Cleaning</li>
+                                    <li data-filter=".electrical">Electrical</li>
+                                    <li data-filter=".drainage">Drainage</li>
+                                    <li data-filter=".pest">Pest Control</li>
+                                    <li data-filter=".roofing">Roofing</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <ul class="filter -d-flex -t">
+                            <li data-filter="all">All Categories</li>
+                            <li data-filter=".exterior">Exterior Cleaning</li>
+                            <li data-filter=".electrical">Electrical</li>
+                            <li data-filter=".drainage">Drainage</li>
+                            <li data-filter=".pest">Pest Control</li>
+                            <li data-filter=".roofing">Roofing</li>
+                        </ul>
+                        <div class="border-line"></div>
+                    </div>
+                </div>
+                <div class="row filter-container">
+                    {% if entry.portfolioToDisplay|length %}
+                        {% for article in entry.portfolioToDisplay.all() %}
+                            {% set classes = '' %}
+                            {% for option in article.projectType %}
+                                {% set classes = classes~' '~option.value %}
+                            {% endfor %}
+
+                            {% set a_image = article.thumbnailImage|length ? article.thumbnailImage.one().url %}
+                            
+                            <div class="col-12 col-md-6 col-lg-4 mix {{classes}}">
+                                <div class="portfolio-container">
+                                    <div class="thumbnail" style="background-image: url({{a_image}})"></div>
+                                    <h2>{{article.header|striptags|raw}}</h2>
+                                    {{article.introText}}
+                                    <a href="{{article.url}}" class="arrow-link">View More<span class="arrow"></span>
+                                    </a>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

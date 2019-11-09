@@ -1,0 +1,16 @@
+<ul class="accordion">
+    {% for service in services %}
+        <li>
+            <a href="#">
+                <h3>{{service.header|striptags|raw}}</h3>
+            </a>
+            <ul class="sub-menu">
+                <li>
+                    <p>{{service.introText|striptags('<br>')|raw}}</p>
+                    <a href="{{service.url}}" class="arrow-link">View More<span class="arrow"></span>
+                    </a>
+                </li>
+            </ul>
+        </li>
+    {% endfor %}
+</ul>

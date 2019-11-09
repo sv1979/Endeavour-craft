@@ -1,0 +1,70 @@
+{% extends "base.twig" %}
+
+{% block content %}
+    <div class="m-body">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="site-heading">
+                        {% if entry.header != '' %}
+                            <h1>
+                                {{entry.header|striptags('<br>')|raw}}
+                            </h1>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="text-img-section">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 col-lg-6">
+                        {% if entry.associatedImages|length %}
+                            {% set assoc_image = entry.associatedImages.one().url %}
+                            <div class="flex-images ratio-4-3 mb-lg-5 -m -t">
+                                <div style="background-image: url({{assoc_image}})"></div>
+                            </div>
+                        {% endif %}
+
+                        {% if entry.sectionHeader1 != '' %}
+                            <h2 class="article-heading">{{entry.sectionHeader1|striptags('<br>')|raw}}</h2>
+                        {% endif %}
+
+                        {% if entry.servicesToDisplay|length %}
+                            <div class="services">
+                                <h4>Services Used</h4>
+                                <h5>
+                                    {% set counter = 1 %}
+                                    {% for one_s in entry.servicesToDisplay %}
+                                        {{one_s.header|striptags|raw}}{% if (counter < entry.servicesToDisplay|length)%},{% endif %}
+                                        {% set counter = counter + 1 %}
+                                    {% endfor %}
+                                </h5>
+                            </div>
+                        {% endif %}
+
+                        {{entry.contentText}}
+
+                        {% if entry.associatedImages|length > 1 %}
+                           <div class="flex-images ratio-4-3 mt-5 -m -t">                       
+                            {% for one_image in entry.associatedImages.offset(1) %}
+                                {% set assoc_image = one_image.url %}
+                                <div style="background-image: url({{assoc_image}})"></div>
+                            {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="col-12 col-lg-5 offset-lg-1 -d -t">
+                        {% if entry.associatedImages|length > 1 %}
+                            <div class="flex-images ratio-4-3">
+                                {% for one_image in entry.associatedImages.offset(0) %}
+                                    {% set assoc_image = one_image.url %}
+                                    <div style="background-image: url({{assoc_image}})"></div>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endblock %}

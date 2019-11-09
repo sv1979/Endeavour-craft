@@ -1,0 +1,88 @@
+<div id="testimonials"></div>
+<div data-aos="fade-up" data-aos-offset="200" class="pt-10 pb-10">
+    <div class="container -m">
+        <div class="row">
+            <div class="col-12 col-md-12 col-lg-8 order-lg-2 relative-swiper">
+                <div class="swiper-container gallery-thumbs">
+                    <div class="swiper-wrapper">
+                        {% for testi in testimonials.all() %}
+                            {% set t_image = testi.customerImage|length ? testi.customerImage.one().url : '' %}
+                            <div class="swiper-slide" style="background-image:url({{t_image}})"></div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="swiper-container gallery-top">
+                    <div class="swiper-wrapper">
+                        {% for testi in testimonials.all() %}
+                            {% set t_image = testi.customerImage|length ? testi.customerImage.one().url : '' %}
+
+                            <div class="swiper-slide">
+                                <div class="sq-image" style="background-image: url({{t_image}})"></div>
+                                <div class="text">
+                                    <div class="swiper-button-next"></div>
+                                    <h2>{{testi.customerName}}</h2>
+                                    <div class="services">
+                                        <h4>Services Used</h4>
+                                        <h5>
+                                            {% set counter = 1 %}
+                                            {% for one_s in testi.servicesUsed.all() %}
+                                                {{one_s.header|striptags|raw}}{% if (counter < testi.servicesUsed|length)%}, {% endif %}
+                                                {% set counter = counter + 1 %}
+                                            {% endfor %}
+                                        </h5>
+                                    </div>
+                                    <p class="min-char">{{testi.customerText}}</p>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container -d">
+        <div class="row">
+            <div class="col-12 col-lg-8 order-lg-2">
+                <div class="swiper-container gallery-desktop">
+                    <div class="swiper-wrapper">
+                        {% for testi in testimonials.all() %}
+                            {% set t_image = testi.customerImage|length ? testi.customerImage.one().url : '' %}
+
+                            <div class="swiper-slide">
+                                <div class="sq-image" style="background-image: url({{t_image}})"></div>
+                                <div class="text">
+                                    <h2>{{testi.customerName}}</h2>
+                                    <div class="services">
+                                        <h4>Services Used</h4>
+                                        <h5>
+                                            {% set counter = 1 %}
+                                            {% for one_s in testi.servicesUsed.all() %}
+                                                {{one_s.header|striptags|raw}}{% if (counter < testi.servicesUsed|length)%}, {% endif %}
+                                                {% set counter = counter + 1 %}
+                                            {% endfor %}
+                                        </h5>
+                                    </div>
+                                    <p class="min-char">{{testi.customerText}}</p>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <div class="swiper-button-next"></div>
+                </div>
+            </div>
+            <div class="col-12 col-lg-4 order-lg-1 flx-end">
+                <div class="swiper-container gallery-thumbs-desktop">
+                    <div class="swiper-wrapper">
+                        {% for testi in testimonials.all() %}
+                            {% set t_image = testi.customerImage|length ? testi.customerImage.one().url : '' %}
+                            <div class="swiper-slide" style="background-image:url({{t_image}})"></div>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% if displayRatings %}
+                    {% include('parts/ratings') %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>

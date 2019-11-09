@@ -33,6 +33,10 @@ $(document).ready(function () {
         var targeted_popup_class = jQuery(this).attr('data-popup-close');
         $('[data-popup="' + targeted_popup_class + '"]').fadeOut(350);
     });
+
+    if($('.filter-container').length) {
+        var mixer = mixitup('.filter-container');
+    }
 });
 
 $(document).ready(function () {
@@ -82,8 +86,6 @@ $(document).ready(function () {
         $('.popup').fadeOut();
     });
 
-
-
     $(otherLinks).on('mouseover', function (event) {
         $('.popup').fadeOut();
     });
@@ -91,9 +93,7 @@ $(document).ready(function () {
 
     $('.close-form').on('click', function (event) {
         $('.popup').fadeOut();
-
     });
-
 
     $(window).on('resize', function () {
         var win = $(this);

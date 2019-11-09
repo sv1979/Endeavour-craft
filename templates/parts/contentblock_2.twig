@@ -1,0 +1,50 @@
+{% set blockImage = oneblock.blockImage|length ? oneblock.blockImage.one().url : '' %}
+{% set multipleImages = oneblock.blockImage|length > 1 ? oneblock.blockImage.all() : [] %}
+{% set rightImage = oneblock.imagePosition == 'right' ? true : false %}
+
+<div class="text-img-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-lg-6">
+                {% if oneblock.heading != '' %}
+                    <h2 class="construction-heading">{{oneblock.heading|striptags('<br>')|raw}}</h2>
+                {% endif %}
+
+                {% if multipleImages|length %}
+                    {% set m_image = multipleImages[0].url %}
+                    <div class="flex-images ratio-16-9 -m -t">
+                        <div style="background-image: url({{m_image}})"></div>
+                    </div>
+                {% else %}
+                    {% if blockImage != '' %}
+                        <img class="-m -t mobile-image" src="{{blockImage}}"/>
+                    {% endif %}
+                {% endif %}
+
+                {{oneblock.context}}
+
+                {% if oneblock.displayRatings == '1' %}
+                    {% include('parts/ratings2') %}
+                {% endif %}
+            </div>
+
+            {% if multipleImages|length %}
+                <div class="col-12 col-lg-5 offset-lg-1 -d -t">
+                    <div class="flex-images ratio-16-9">
+                        {% for oneimage in multipleImages %}
+                            {% set oneimage_url = oneimage.url %}
+                            <div style="background-image: url({{oneimage_url}})"></div>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% else %}
+                <div class="col-12 col-lg-6 -d -t">
+                    {% if blockImage != '' %}
+                        <img src="{{blockImage}}"/>
+                    {% endif %}
+                </div>
+            {% endif %}
+
+        </div>
+    </div>
+</div>

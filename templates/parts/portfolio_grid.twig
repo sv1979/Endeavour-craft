@@ -1,0 +1,19 @@
+<div class="row">
+    {% for item in items %}
+        {% set v_image = item.thumbnailImage|length ? item.thumbnailImage.one().url : '' %}
+
+        <div class="col-12 col-md-6 col-lg-4">
+            <div class="portfolio-container">
+                <div class="thumbnail" style="background-image: url({{v_image}})"></div>
+                {% if item.header != '' %}
+                    <h2>
+                        {{item.header|striptags('<br>')|raw}}
+                    </h2>
+                {% endif %}
+                {{item.introText}}
+                <a href="{{item.url}}" class="arrow-link">View More<span class="arrow"></span>
+                </a>
+            </div>
+        </div>
+    {% endfor %}
+</div>

@@ -1,0 +1,92 @@
+{% extends "base.twig" %}
+{% set active_link = 'contact' %}
+
+{% block content %}
+    <div class="m-body">
+        <div class="container">
+            <div class="site-heading">
+                {% if entry.header != '' %}
+                    <h1>
+                        {{entry.header|striptags('<br>')|raw}}
+                    </h1>
+                {% endif %}
+                {% if entry.subheader != '' %}
+                    <p>{{entry.subheader|striptags('<br>')|raw}}</p>
+                {% endif %}
+            </div>
+            <div class="pt-lg-5 pb-10 row">
+                <div class="col-12 col-lg-6">
+                    <h2 class="heading contact">Free Quote</h2>
+                    <p class="form-blurb">{{entry.contentText|striptags('<br>')|raw}}</p>
+                    <form class="quote-form free">
+                        <input type="text" placeholder="Your Name">
+                        <input type="text" placeholder="Your Email">
+                        <input type="text" placeholder="Your Phone">
+                        <input type="text" placeholder="Property Address">
+                        <select class="custom-select" id="inputGroupSelect01">
+                            <option selected disabled>Enquiry</option>
+                            <option value="1">One</option>
+                            <option value="2">Two</option>
+                            <option value="3">Three</option>
+                        </select>
+                        <p class="select">Select your Services</p>
+                        <div class="select-services">
+                            <label class="radio-container">House Washing
+                                <input type="radio" name="house-washing">
+                                <span class="checkmark"></span>
+                            </label>
+                            <label class="radio-container">Gutter Cleaning
+                                <input type="radio" name="gutter-cleaning">
+                                <span class="checkmark"></span>
+                            </label>
+                            <label class="radio-container">Roof Treatment
+                                <input type="radio" name="roof-treatment">
+                                <span class="checkmark"></span>
+                            </label>
+                            <label class="radio-container">Pest Control
+                                <input type="radio" name="pest-control">
+                                <span class="checkmark"></span>
+                            </label>
+                            <label class="radio-container">Window Cleaning
+                                <input type="radio" name="window-cleaning">
+                                <span class="checkmark"></span>
+                            </label>
+                            <label class="radio-container">Carpet Cleaning
+                                <input type="radio" name="carpet-cleaning">
+                                <span class="checkmark"></span>
+                            </label>
+                            <label class="radio-container">Commercial
+                                <input type="radio" name="commercial">
+                                <span class="checkmark"></span>
+                            </label>
+                            <label class="radio-container">Other
+                                <input type="radio" name="other">
+                                <span class="checkmark"></span>
+                            </label>
+                        </div>
+                        <textarea type="text" rows="1" placeholder="Additional Info"></textarea>
+                        <button type="submit" class=" outline-btn green">Submit</button>
+                    </form>
+                </div>
+                <div class="col-12 col-lg-5 offset-lg-1">
+                    <h2 class="heading contact">Contact Details</h2>
+                    <p class="blurb">{{entry.contentText2|striptags('<br>')|raw}}</p>
+                    <ul class="contact-details">
+                        <li>
+                            <a href="tel:{{ contactData.phoneNumber|replace({' ': '', '(':'', ')': ''}) }}">{{contactData.phoneNumber}}</a>
+                        </li>
+                        <li>
+                            <a href="mailto:{{contactData.emailAddress}}">{{contactData.emailAddress}}</a>
+                        </li>
+                        <li>
+                            <a href="{{entry.contactAddressLink}}" target="_blank">{{entry.contactAddressText|striptags('<br>')|raw}}</a>
+                        </li>
+                    </ul>
+                    <div class="map">
+                        <iframe frameborder="0" style="border:1px solid; width: 100%; height: 100%;" src="https://www.google.com/maps/embed/v1/place?q=place_id:ChIJXRpBs9xNDW0RafyIWLORUnU&key=..." allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

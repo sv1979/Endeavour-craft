@@ -1,0 +1,17 @@
+<h2 class="big-heading black">Frequently asked Questions</h2>
+<div class="accordion-wrapper faq">
+    <ul class="accordion">
+        {% for faq in faqs %}
+            <li>
+                <a href="#">
+                    <h3>{{faq.title}}</h3>
+                </a>
+                <ul class="sub-menu">
+                    <li>
+                        {{faq.contentText}}
+                    </li>
+                </ul>
+            </li>
+        {% endfor %}
+    </ul>
+</div>

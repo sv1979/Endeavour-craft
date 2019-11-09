@@ -1,7 +1,10 @@
-<div class="pt-10 pb-10 form">
+{% set e_class = '' %}
+{% if extraclass is defined %}
+    {% set e_class = extraclass %}
+{% endif %}
+<div class="pt-10 pb-10 form {{e_class}}">
     <div class="sm-container">
-        <h2 class="big-heading black">Arrange your Free Professional
-                                                                        Assessment and Quote</h2>
+        <h2 class="big-heading black">Arrange your Free Professional Assessment and Quote</h2>
         <div class="tab-bg">
             <div class="tabs">
                 <label class="radio-container">Get a Quote

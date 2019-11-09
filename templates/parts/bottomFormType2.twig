@@ -1,4 +1,9 @@
-<div class="pt-10 pb-10">
+{% set e_class = '' %}
+{% if extraclass is defined %}
+    {% set e_class = extraclass %}
+{% endif %}
+
+<div class="pt-10 pb-10 {{e_class}}">
     <div class="container">
         <div class="row">
             <div class="col-12 col-lg-7">

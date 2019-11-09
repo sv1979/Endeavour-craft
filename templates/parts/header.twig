@@ -1,3 +1,8 @@
+{% set active_link = '' %}
+{% if (activeLink is defined and activeLink != '') %}
+    {% set active_link = activeLink %} 
+{% endif %}
+
 <div class="mobile-header scroll">
     <a href="/" class="logo"></a>
     <div class="nav-buttons">
@@ -18,9 +23,13 @@
         <div class="desktop-links">
             <ul class="desktop-nav">
                 {% for oneLink in navlinks_level_1 %}
+                    {% set activeClass = ''  %}
+                    {% if (active_link != '' and active_link in oneLink.linkDestination.one().url) %}
+                        {% set activeClass = ' active'  %}
+                    {% endif %}
                     <li class="dropdwn">
                         {% set className = oneLink.desktopDropdown == 1 ? 'dropbtn' : 'dropdown' %}
-                        <a class="{{className}}" 
+                        <a class="{{className}} {{activeClass}}" 
                         {% if (className == 'dropdown') %}
                         href="{{oneLink.linkDestination|length ? oneLink.linkDestination.one().url : '#'}}"
                         {% endif %}

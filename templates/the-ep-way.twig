@@ -1,0 +1,77 @@
+{% extends "base.twig" %}
+{% set active_link = 'the-ep-way' %}
+
+{% block content %}
+    <div class="m-body">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="site-heading">
+                        {% if entry.header != '' %}
+                            <h1>
+                                {{entry.header|striptags('<br>')|raw}}
+                            </h1>
+                        {% endif %}
+                        {% if entry.subheader != '' %}
+                            <p>{{entry.subheader|striptags('<br>')|raw}}</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {% if entry.contentBlock|length %}
+            {% for oneblock in entry.contentBlock %}
+                {% include('parts/contentblock_2') with { 'oneblock': oneblock } %}
+            {% endfor %}
+        {% endif %}
+
+        {% if ( entry.videoIframeCode != '' and entry.videoThumbnail|length )%}
+            {% include('parts/videosection') with 
+            {
+            'iframecode': entry.videoIframeCode,
+            'thumbnail':entry.videoThumbnail.one().url,
+            'heading': entry.videoSectionHeader 
+            }
+        %}
+        {% endif %}
+
+        {% if entry.testimonialsToDisplay|length %}
+            {% include('parts/testimonials') with 
+                { 
+                    'testimonials': entry.testimonialsToDisplay,
+                    'displayRatings': entry.displayRatings == '1' ? true : false
+                } 
+            %}
+        {% endif %}
+
+        {% if entry.logosSectionImages|length %}
+            <div class="logo-container">
+                <div data-aos="fade-up" data-aos-offset="200" class="sm-container">
+                    <h1 class="big-heading">{{entry.logosSectionHeader}}</h1>
+                    <div class="row">
+                        {% for oneimage in entry.logosSectionImages.all() %}
+                            <div class="col-6 col-lg-2 order-lg-{{oneimage.orderNumber}}">
+                                <div class="logo" style="background-image: url({{oneimage.url}})"></div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+
+        {% if entry.teamToDisplay|length %}
+            {% include('parts/team') with 
+                { 
+                    'team': entry.teamToDisplay.all()
+                } 
+            %}
+        {% endif %}
+    </div>
+
+    {% if entry.bottomFormType == 'type1' %}
+        {% include('parts/bottomFormType1') with {'extraclass':'grey'} %}
+    {% else %}
+        {% include('parts/bottomFormType2') with {'extraclass':'grey'} %}
+    {% endif %}
+{% endblock %}

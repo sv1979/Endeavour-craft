@@ -1,0 +1,12 @@
+<div class="row">
+    {% for item in items %}
+        {% set assoc_image = item.icon.one().url %}
+        <div class="col-12 col-md-6 col-lg-3">
+            <div class="feature">
+                <div class="icon" style="background-image: url({{assoc_image}})"></div>
+                <h2>{{item.heading}}</h2>
+                <p>{{item.context}}</p>
+            </div>
+        </div>
+    {% endfor %}
+</div>
