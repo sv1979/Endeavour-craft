@@ -1,5 +1,5 @@
 <div class="row">
-    {% for item in items %}
+    {% for item in items.all() %}
         {% set v_image = item.thumbnailImage|length ? item.thumbnailImage.one().url : '' %}
 
         <div class="col-12 col-md-6 col-lg-4">

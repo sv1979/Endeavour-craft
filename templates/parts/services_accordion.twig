@@ -1,5 +1,5 @@
 <ul class="accordion">
-    {% for service in services %}
+    {% for service in services.all() %}
         <li>
             <a href="#">
                 <h3>{{service.header|striptags|raw}}</h3>

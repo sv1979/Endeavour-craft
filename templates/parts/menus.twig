@@ -19,7 +19,7 @@
     </div>
 
     <div class="tab-image-links">
-        {% for twoLink in oneLink.children().level(2) %}
+        {% for twoLink in oneLink.children().level(2).all() %}
         {% set linkImage = twoLink.linkImage|length ? twoLink.linkImage.one().url : '#' %}
         {% if twoLink.hasDescendants() %}
         <a data-sub-open="{{twoLink.slug}}" class="image-link">
@@ -46,7 +46,7 @@
             Back</span>
     </div>
     <div class="tab-image-links">
-        {% for twoLink in oneLink.descendants %}
+        {% for twoLink in oneLink.descendants.all() %}
         {% set linkImage = twoLink.linkImage|length ? twoLink.linkImage.one().url : '#' %}
 
         <a href="{{twoLink.linkDestination|length ? twoLink.linkDestination.one().url : '#'}}" class="image-link">

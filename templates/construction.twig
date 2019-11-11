@@ -23,7 +23,7 @@
         </div>
 
         {% if entry.contentBlock|length %}
-            {% for oneblock in entry.contentBlock %}
+            {% for oneblock in entry.contentBlock.all() %}
                 {% include('parts/contentblock_2') with { 'oneblock': oneblock } %}
             {% endfor %}
         {% endif %}

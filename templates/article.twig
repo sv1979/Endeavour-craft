@@ -49,7 +49,7 @@
 
                         {% if entry.associatedImages|length > 1 %}
                            <div class="flex-images ratio-4-3 mt-5 -m -t">                       
-                            {% for one_image in entry.associatedImages.offset(1) %}
+                            {% for one_image in entry.associatedImages.offset(1).all() %}
                                 {% set assoc_image = one_image.url %}
                                 <div style="background-image: url({{assoc_image}})"></div>
                             {% endfor %}
@@ -59,7 +59,7 @@
                     <div class="col-12 col-lg-5 offset-lg-1 -d -t">
                         {% if entry.associatedImages|length > 1 %}
                             <div class="flex-images ratio-4-3">
-                                {% for one_image in entry.associatedImages.offset(0) %}
+                                {% for one_image in entry.associatedImages.offset(0).all() %}
                                     {% set assoc_image = one_image.url %}
                                     <div style="background-image: url({{assoc_image}})"></div>
                                 {% endfor %}
