@@ -13,10 +13,10 @@ AOS.init();
 $(document).ready(function () {
 
     var includeDiv = $("#include");
-    $(window).on('hashchange', function () {
-        var href = location.hash.slice(1) + ".html";
-        includeDiv.load('include/' + href);
-    });
+    // $(window).on('hashchange', function () {
+    //     var href = location.hash.slice(1) + ".html";
+    //     includeDiv.load('include/' + href);
+    // });
 
     $('[data-popup-open]').on('mouseover', function (event) {
         event.preventDefault();
@@ -73,6 +73,11 @@ $(document).ready(function () {
         $('.menubox:first-child').show()
     }
 
+    function loadSubmenu(slug){
+        $('.menubox').hide();
+        $(`.menubox#${slug}`).show();
+    }
+
     function removeFade() {
         $('.pseudo-fade').removeClass('fade-in');
     }
@@ -83,29 +88,38 @@ $(document).ready(function () {
 
     AOS.init();
 
-    $('.dropbtn').on('click', function () {
-        loadHome();
+    $('.dropbtn').on('click', function (e) {
+        loadSubmenu($(e.currentTarget).data('slug'));
         $('.popup').fadeIn();
     });
 
-    $('#tab-wrapper').on('click', ".image-link", function () {
+    $('#tab-wrapper').on('click', ".image-link", function (e) {
         var page = $(this).attr("data-sub-open");
 
         function loadPage() {
-            $('#tab-wrapper').load("includes/" + page + ".html");
             $(`.menubox#${page}`).show()
         }
         $('.pseudo-fade').addClass('fade-in');
-        setTimeout(emptyDiv, 300);
-        setTimeout(removeFade, 330);
-        setTimeout(loadPage, 330);
+
+        if(page) {
+            setTimeout(emptyDiv, 300);
+            setTimeout(removeFade, 330);
+            setTimeout(loadPage, 330);
+        } else {
+            $('.popup').fadeOut();
+        }
     });
 
     $('#tab-wrapper').on('click', ".back", function (event) {
         $('.pseudo-fade').addClass('fade-in');
         setTimeout(emptyDiv, 300);
         setTimeout(removeFade, 330);
-        setTimeout(loadHome, 330);
+        setTimeout(() => {
+            $(`.menubox#${$(event.currentTarget).data('back')}`).show();
+        }, 600);
+        
+        //$(`.dropbtn[data-slug="${$(event.currentTarget).data('back')}"]`).click()
+        //setTimeout(loadHome, 330);
     });
 
     $('#tab-wrapper').on('click', ".popup-close", function (event) {

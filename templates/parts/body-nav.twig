@@ -30,7 +30,7 @@
                 <span><img src="../images/point-left.svg" alt="">Back</span>
             </div>
             <ul class="sub-menu">
-                {% for twoLink in oneLink.descendants.all() %}
+                {% for twoLink in oneLink.children().level(2).all() %}
                 {% if twoLink.hasDescendants() %}
                 <li rel="{{twoLink.slug}}">{{twoLink.linkText}}</li>
                 {% else %}
@@ -51,7 +51,7 @@
                 <span><img src="../images/point-left.svg" alt="">Back</span>
             </div>
             <ul class="sub-menu">
-                {% for twoLink in oneLink.descendants.all() %}
+                {% for twoLink in oneLink.children().level(3).all() %}
                     <li>
                         <a href="{{twoLink.linkDestination|length ? twoLink.linkDestination.one().url : '#'}}">{{twoLink.linkText}}</a>
                     </li>

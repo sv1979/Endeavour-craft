@@ -41,7 +41,8 @@
 <div id="{{oneLink.slug}}" class="menubox">
     <div class="nav-heading">
         <h2>{{oneLink.linkText}}</h2>
-        <span class="back">
+        {% set parent_slug = craft.entries().ancestorOf(oneLink).one().slug %}
+        <span class="back" data-back="{{parent_slug}}">
             <img src="../images/point-left.svg" alt="">
             Back</span>
     </div>

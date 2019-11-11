@@ -29,7 +29,8 @@
                     {% endif %}
                     <li class="dropdwn">
                         {% set className = oneLink.desktopDropdown == 1 ? 'dropbtn' : 'dropdown' %}
-                        <a class="{{className}} {{activeClass}}" 
+                        <a class="{{className}} {{activeClass}}"
+                        data-slug="{{oneLink.slug}}"
                         {% if (className == 'dropdown') %}
                         href="{{oneLink.linkDestination|length ? oneLink.linkDestination.one().url : '#'}}"
                         {% endif %}
