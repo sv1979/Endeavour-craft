@@ -1,5 +1,7 @@
 {% extends "base.twig" %}
 {% set active_link = 'contact' %}
+{% set pageTitle = entry.seoTitle ? entry.seoTitle : entry.title %}
+{% set pageDescription = entry.seoDescription ? entry.seoDescription : entry.title %}
 
 {% block content %}
     <div class="m-body">
@@ -18,12 +20,19 @@
                 <div class="col-12 col-lg-6">
                     <h2 class="heading contact">Free Quote</h2>
                     <p class="form-blurb">{{entry.contentText|striptags('<br>')|raw}}</p>
-                    <form class="quote-form free">
-                        <input type="text" placeholder="Your Name">
-                        <input type="text" placeholder="Your Email">
-                        <input type="text" placeholder="Your Phone">
-                        <input type="text" placeholder="Property Address">
-                        <select class="custom-select" id="inputGroupSelect01">
+                    {% set formId = 'Contact Page Form' %}
+                    {% set servicesQuery = craft.entries()
+                        .section('services')
+                        .all() %}
+                    <form method="post" id="contactPageForm" class="quote-form free ajaxForm" action="" accept-charset="UTF-8">
+                        {{ csrfInput() }}
+                        <input type="hidden" name="message[formName]" value="{{formId}}">
+                        <input type="hidden" name="action" value="contact-form/send">
+                        <input name="fromName" type="text" placeholder="Your Name">
+                        <input name="fromEmail" type="text" placeholder="Your Email">
+                        <input name="message[Phone]" type="text" placeholder="Your Phone">
+                        <input name="message[Address]" type="text" placeholder="Property Address">
+                        <select name="message[Enquiry]" class="custom-select" id="inputGroupSelect01">
                             <option selected disabled>Enquiry</option>
                             <option value="1">One</option>
                             <option value="2">Two</option>
@@ -31,40 +40,16 @@
                         </select>
                         <p class="select">Select your Services</p>
                         <div class="select-services">
-                            <label class="radio-container">House Washing
-                                <input type="radio" name="house-washing">
+                            {% for service in servicesQuery %}
+                            <label class="radio-container">{{service.title}}
+                                <input type="checkbox" name="message[Services][]" value="{{service.title}}">
                                 <span class="checkmark"></span>
                             </label>
-                            <label class="radio-container">Gutter Cleaning
-                                <input type="radio" name="gutter-cleaning">
-                                <span class="checkmark"></span>
-                            </label>
-                            <label class="radio-container">Roof Treatment
-                                <input type="radio" name="roof-treatment">
-                                <span class="checkmark"></span>
-                            </label>
-                            <label class="radio-container">Pest Control
-                                <input type="radio" name="pest-control">
-                                <span class="checkmark"></span>
-                            </label>
-                            <label class="radio-container">Window Cleaning
-                                <input type="radio" name="window-cleaning">
-                                <span class="checkmark"></span>
-                            </label>
-                            <label class="radio-container">Carpet Cleaning
-                                <input type="radio" name="carpet-cleaning">
-                                <span class="checkmark"></span>
-                            </label>
-                            <label class="radio-container">Commercial
-                                <input type="radio" name="commercial">
-                                <span class="checkmark"></span>
-                            </label>
-                            <label class="radio-container">Other
-                                <input type="radio" name="other">
-                                <span class="checkmark"></span>
-                            </label>
+                            {% endfor %}
                         </div>
-                        <textarea type="text" rows="1" placeholder="Additional Info"></textarea>
+                        <textarea name="message[body]" type="text" rows="1" placeholder="Additional Info"></textarea>
+                        <div class="success">Submission successful</div>
+                        <div class="fail">Submission failed</div>
                         <button type="submit" class=" outline-btn green">Submit</button>
                     </form>
                 </div>

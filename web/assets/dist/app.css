@@ -15130,3 +15130,19 @@ body.modal-open {
   overflow-y: scroll !important;
 }
 
+.success {
+  display: none;
+  color: #84bf41;
+}
+
+.fail {
+  display: none;
+  color: red;
+}
+
+.success.shown,
+.fail.shown {
+  display: block;
+  margin-bottom: 10px;
+}
+

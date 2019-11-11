@@ -10,29 +10,38 @@
 </div>
 <!-- Menu Dropdown ends-->
 <!-- Quote Modal -->
+{% set formId = 'Free Quote Popup Form' %}
+{% set servicesQuery = craft.entries()
+    .section('services')
+    .all() %}
+
 <div class="modal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-content">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true"><img src="images/close.svg" alt=""></span>
         </button>
         <h2 class="heading">Free Quote</h2>
-        <form class="quote-form free">
-
+        <form method="post" id="freeQuotePopupForm" class="quote-form free ajaxForm" action="" accept-charset="UTF-8">
+            {{ csrfInput() }}
+            <input type="hidden" name="message[formName]" value="{{formId}}">
+            <input type="hidden" name="action" value="contact-form/send">
             <div class="input-row">
-                <input type="text" placeholder="Your Name">
-                <input type="text" placeholder="Your Phone">
+                <input name="fromName" type="text" placeholder="Your Name">
+                <input name="message[Phone]" type="text" placeholder="Your Phone">
             </div>
             <div class="input-row">
-                <input type="text" placeholder="Your Email">
-                <input type="text" placeholder="Property Address">
+                <input name="fromEmail" type="text" placeholder="Your Email">
+                <input name="message[Address]" type="text" placeholder="Property Address">
             </div>
-            <select class="custom-select" id="inputGroupSelect01">
+            <select name="message[Service]" class="custom-select" id="inputGroupSelect01">
                 <option selected disabled>Select your Services</option>
-                <option value="1">One</option>
-                <option value="2">Two</option>
-                <option value="3">Three</option>
+                {% for service in servicesQuery %}
+                    <option value="{{ service.title }}">{{ service.title }}</option>
+                {% endfor %}
             </select>
-            <textarea type="text" rows="1" placeholder="Additional Info"></textarea>
+            <textarea name="message[body]" type="text" rows="1" placeholder="Additional Info"></textarea>
+            <div class="success">Submission successful</div>
+            <div class="fail">Submission failed</div>
             <button type="submit" class="green-btn">Submit</button>
         </form>
     </div>

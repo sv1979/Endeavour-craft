@@ -1,5 +1,7 @@
 {% extends "base.twig" %}
 {% set active_link = 'the-ep-way' %}
+{% set pageTitle = entry.seoTitle ? entry.seoTitle : entry.title %}
+{% set pageDescription = entry.seoDescription ? entry.seoDescription : entry.title %}
 
 {% block content %}
     <div class="m-body">

@@ -1,36 +1,48 @@
 <div class="relative-maxwidth">
-    <div class="tab-card">
-        <h2>Free Quote</h2>
-        <div class="tform">
-            <label class="radio-container">Get a Quote
-                <input type="radio" checked="checked" rel="tab3" name="tform">
-                <span class="checkmark"></span>
-            </label>
-            <label class="radio-container">Request a callback
-                <input type="radio" rel="tab4" name="tform">
-                <span class="checkmark"></span>
-            </label>
-        </div>
-        <div class="tform_container">
-            <div id="tab3" class="tform_content">
-                <form class="quote-form">
-                    <input type="text" placeholder="Your Name">
-                    <input type="text" placeholder="Your Email">
-                    <input type="text" placeholder="Your Phone Number">
-                    <input type="text" placeholder="Property Address">
-                    <textarea placeholder="Additional Info" rows="1"></textarea>
+	<div class="tab-card">
+		<h2>Free Quote</h2>
+		<div class="tform">
+			<label class="radio-container">Get a Quote
+				<input type="radio" checked="checked" rel="tab3" name="tform">
+				<span class="checkmark"></span>
+			</label>
+			<label class="radio-container">Request a callback
+				<input type="radio" rel="tab4" name="tform">
+				<span class="checkmark"></span>
+			</label>
+		</div>
+		<div class="tform_container">
+			{% set formId1 = 'Top form Quote' %}
+			{% set formId2 = 'Top Form Request Callback' %}
+			<div id="tab3" class="tform_content">
+                <form method="post" id="freeQuoteTopForm" class="quote-form ajaxForm" action="" accept-charset="UTF-8">
+                    {{ csrfInput() }}
+                    <input type="hidden" name="message[formName]" value="{{formId1}}">
+                    <input type="hidden" name="action" value="contact-form/send">
+					<input name="fromName" type="text" placeholder="Your Name">
+					<input name="fromEmail" type="text" placeholder="Your Email">
+					<input name="message[Phone]" type="text" placeholder="Your Phone Number">
+					<input name="message[Address]" type="text" placeholder="Property Address">
+					<textarea name="message[body]" placeholder="Additional Info" rows="1"></textarea>
+                    <div class="success">Submission successful</div>
+                    <div class="fail">Submission failed</div>
                     <button type="submit" class="green-btn">Submit</button>
-                </form>
-            </div>
-            <div id="tab4" class="tform_content">
-                <form class="callback-form">
-                    <input type="text" placeholder="Your Name">
-                    <input type="text" placeholder="Phone Number">
-                    <input type="text" placeholder="Property Address">
-                    <input type="text" placeholder="Services you require">
-                    <button type="submit" class="green-btn">Submit</button>
-                </form>
-            </div>
-        </div>
-    </div>
+				</form>
+			</div>
+			<div id="tab4" class="tform_content">
+                <form method="post" id="requestCallbackTopForm" class="callback-form ajaxForm" action="" accept-charset="UTF-8">
+                    {{ csrfInput() }}
+                    <input type="hidden" name="message[formName]" value="{{formId2}}">
+                    <input type="hidden" name="action" value="contact-form/send">
+					<input name="fromName" type="text" placeholder="Your Name">
+					<input name="fromEmail" type="text" placeholder="Phone Number">
+					<input name="message[Address]" type="text" placeholder="Property Address">
+                    <input name="message[Services]" type="text" placeholder="Services you require">
+                    <div class="success">Submission successful</div>
+                    <div class="fail">Submission failed</div>
+					<button type="submit" class="green-btn">Submit</button>
+				</form>
+			</div>
+		</div>
+	</div>
 </div>

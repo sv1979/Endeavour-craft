@@ -3215,3 +3215,20 @@ body.modal-open {
   padding-right: 0 !important;
   overflow-y: scroll !important;
 }
+
+.success {
+  display: none;
+  color: $green;
+}
+
+.fail {
+    display: none;
+    color: red;
+}
+
+.success, .fail {
+    &.shown {
+        display: block;
+        margin-bottom: 10px;
+    }
+}

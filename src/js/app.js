@@ -1,6 +1,7 @@
 window.Popper = require('popper.js');
 window.$ = window.jQuery = require('jquery');
 
+require('bootstrap');
 import Swiper from 'swiper';
 import AOS from 'aos';
 import mixitup from 'mixitup';
@@ -37,7 +38,32 @@ $(document).ready(function () {
     if($('.filter-container').length) {
         var mixer = mixitup('.filter-container');
     }
+
+    initForms();
 });
+
+function initForms() {
+    const ajaxForms = $('.ajaxForm');
+    ajaxForms.submit(function(ev) {
+        const successMessage = $(this).find('.success');
+        const failMessage = $(this).find('.fail');
+        ev.preventDefault();
+        $.post({
+            url: '/',
+            dataType: 'json',
+            data: $(this).serialize(),
+            success: function(response) {
+                if (response.success) {
+                    failMessage.removeClass('shown');
+                    successMessage.addClass('shown');
+                } else {
+                    successMessage.removeClass('shown');
+                    failMessage.addClass('shown');
+                }
+            }
+        });
+    });
+}
 
 $(document).ready(function () {
     var otherLinks = $('.desktop-links a').not('.dropbtn');

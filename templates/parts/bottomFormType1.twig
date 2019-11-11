@@ -1,50 +1,64 @@
 {% set e_class = '' %}
 {% if extraclass is defined %}
-    {% set e_class = extraclass %}
+	{% set e_class = extraclass %}
 {% endif %}
 <div class="pt-10 pb-10 form {{e_class}}">
-    <div class="sm-container">
-        <h2 class="big-heading black">Arrange your Free Professional Assessment and Quote</h2>
-        <div class="tab-bg">
-            <div class="tabs">
-                <label class="radio-container">Get a Quote
-                    <input type="radio" checked="checked" rel="tab1" name="radio">
-                    <span class="checkmark"></span>
-                </label>
-                <label class="radio-container">Request a callback
-                    <input type="radio" rel="tab2" name="radio">
-                    <span class="checkmark"></span>
-                </label>
-            </div>
-            <div class="tab_container">
-                <div id="tab1" class="tab_content">
-                    <form class="quote-form">
-                        <input type="text" placeholder="Your Name">
-                        <div class="input-row">
-                            <input type="text" placeholder="Email">
-                            <input type="text" placeholder="Phone Number">
+	<div class="sm-container">
+		<h2 class="big-heading black">Arrange your Free Professional Assessment and Quote</h2>
+		<div class="tab-bg">
+			<div class="tabs">
+				<label class="radio-container">Get a Quote
+					<input type="radio" checked="checked" rel="tab1" name="radio">
+					<span class="checkmark"></span>
+				</label>
+				<label class="radio-container">Request a callback
+					<input type="radio" rel="tab2" name="radio">
+					<span class="checkmark"></span>
+				</label>
+			</div>
+			<div class="tab_container">
+				{% set formId1 = 'Bottom form Quote' %}
+				{% set formId2 = 'Bottom Form Request Callback' %}
+
+				<div id="tab1" class="tab_content">
+                    <form method="post" id="freeQuoteBottomForm" class="quote-form ajaxForm" action="" accept-charset="UTF-8">
+                        {{ csrfInput() }}
+                        <input type="hidden" name="message[formName]" value="{{formId1}}">
+                        <input type="hidden" name="action" value="contact-form/send">
+                        <input name="fromName" type="text" placeholder="Your Name">
+						<div class="input-row">
+							<input name="fromEmail" type="text" placeholder="Email">
+							<input name="message[Phone]" type="text" placeholder="Phone Number">
+						</div>
+						<div class="input-row">
+							<input name="message[Address]" type="text" placeholder="Property Address">
+							<input name="message[Services]" type="text" placeholder="Services you require">
                         </div>
-                        <div class="input-row">
-                            <input type="text" placeholder="Property Address">
-                            <input type="text" placeholder="Services you require">
+                        <div class="success">Submission successful</div>
+                        <div class="fail">Submission failed</div>
+						<button type="submit" class=" outline-btn green">Submit</button>
+					</form>
+				</div>
+				<div id="tab2" class="tab_content">
+                    <form method="post" id="requestCallbackBottomForm" class="callback-form ajaxForm" action="" accept-charset="UTF-8">
+                        {{ csrfInput() }}
+                        <input type="hidden" name="message[formName]" value="{{formId2}}">
+                        <input type="hidden" name="action" value="contact-form/send">
+                        <input name="fromEmail" type="hidden" placeholder="Email" value="noemail@noemail.form">
+						<div class="input-row">
+							<input name="fromName" type="text" placeholder="Your Name">
+							<input name="message[Phone]" type="text" placeholder="Phone Number">
+						</div>
+						<div class="input-row">
+							<input name="message[Address]" type="text" placeholder="Property Address">
+							<input name="message[Services]" type="text" placeholder="Services you require">
                         </div>
-                        <button type="submit" class=" outline-btn green">Submit</button>
-                    </form>
-                </div>
-                <div id="tab2" class="tab_content">
-                    <form class="callback-form">
-                        <div class="input-row">
-                            <input type="text" placeholder="Your Name">
-                            <input type="text" placeholder="Phone Number">
-                        </div>
-                        <div class="input-row">
-                            <input type="text" placeholder="Property Address">
-                            <input type="text" placeholder="Services you require">
-                        </div>
-                        <button type="submit" class=" outline-btn green">Submit</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
+                        <div class="success">Submission successful</div>
+                        <div class="fail">Submission failed</div>
+						<button type="submit" class=" outline-btn green">Submit</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>

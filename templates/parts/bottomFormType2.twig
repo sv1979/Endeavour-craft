@@ -10,10 +10,16 @@
                 <div class="cb">
                     <h2 class="heading">As a commercial customer, your dedicated account manager is there to take every call.</h2>
                     <h3 class="">Request a callback</h3>
-                    <form class="requestcb" action="">
-                        <input type="text" placeholder="Your Name">
-                        <input type="text" placeholder="Phone Number">
-                        <input type="text" placeholder="Email">
+                    {% set formId = 'Bottom form Type 2' %}
+                    <form method="post" id="requestCallbackBottomForm" class="requestcb ajaxForm" action="" accept-charset="UTF-8">
+                        {{ csrfInput() }}
+                        <input type="hidden" name="message[formName]" value="{{formId}}">
+                        <input type="hidden" name="action" value="contact-form/send">
+                        <input name="fromName" type="text" placeholder="Your Name">
+                        <input name="message[Phone]" type="text" placeholder="Phone Number">
+                        <input name="fromEmail" type="text" placeholder="Email">
+                        <div class="success">Submission successful</div>
+                        <div class="fail">Submission failed</div>
                         <button type="submit" class=" outline-btn green">Request a Call Back</button>
                     </form>
                 </div>
