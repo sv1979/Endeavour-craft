@@ -3,106 +3,100 @@
 {% set pageDescription = entry.seoDescription ? entry.seoDescription : entry.title %}
 
 {% block content %}
-    <div class="m-body">
-        {% if entry.displayFormOnTop == '1' %}
-            {% include('parts/topform') %}
-        {% endif %}
+	<div class="m-body">
+		{% if entry.displayFormOnTop == '1' %}
+			{% include('parts/topform') %}
+		{% endif %}
 
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="site-heading indiv">
-                        {% if entry.header != '' %}
-                            <h1>
-                                {{entry.header|striptags('<br>')|raw}}
-                            </h1>
-                        {% endif %}
-                        {% if entry.displayRatings == '1' %}
-                            {% include('parts/ratings2') %}
-                        {% endif %}
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="text-img-section">
-            <div class="container">
-                <div class="row">
-                    {% if entry.displayFormOnTop == '1' %}
-                        <div class="col-12 col-lg-10 col-xl-6">
-                            {% if entry.sectionHeader1 != '' %}
-                                <h2 class="construction-heading">{{entry.sectionHeader1|striptags('<br>')|raw}}</h2>
-                            {% endif %}
-                            {{entry.contentText}}
-                        </div>
-                    {% else %}
-                        {% set a_image = entry.associatedImages|length ? entry.associatedImages.one().url : '' %}
-                        <div class="col-12 col-lg-6">
-                            {% if entry.sectionHeader1 != '' %}
-                                <h2 class="construction-heading">{{entry.sectionHeader1|striptags('<br>')|raw}}</h2>
-                            {% endif %}
-                            {% if a_image != '' %}
-                                <img class="mb-4 -m -t" src="{{a_image}}"/>
-                            {% endif %}
-                            {{entry.contentText}}
-                        </div>
-                        <div class="col-12 col-lg-6 -d -t">
-                            {% if a_image != '' %}
-                                <div class="square-image electrical" style="background-image: url({{a_image}})"></div>
-                            {% endif %}
-                        </div>
-                    {% endif %}
-                </div>
-            </div>
-        </div>
+		<div class="container">
+			<div class="row">
+				<div class="col-12">
+					<div class="site-heading indiv">
+						{% if entry.header != '' %}
+							<h1>
+								{{entry.header|striptags('<br>')|raw}}
+							</h1>
+						{% endif %}
+						{% if entry.displayRatings == '1' %}
+							{% include('parts/ratings2') %}
+						{% endif %}
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="text-img-section">
+			<div class="container">
+				<div class="row">
+                    {% set hasForm = '' %}
+                    {% if entry.displayFormOnTop == '1' %}{% set hasForm = 'hasForm' %}{% endif %}
 
-        {% if entry.contentBlock|length %}
-            <div class="pt-10 pb-10">
-                <div class="container">
-                    {% for oneblock in entry.contentBlock %}
-                        {% include('parts/contentblock') with { 'oneblock': oneblock } %}
-                    {% endfor %}
-                </div>
-            </div>
-        {% endif %}
+					{% set a_image = entry.associatedImages|length ? entry.associatedImages.one().url : '' %}
+					<div class="col-12 col-lg-6">
+						{% if entry.sectionHeader1 != '' %}
+							<h2 class="construction-heading">{{entry.sectionHeader1|striptags('<br>')|raw}}</h2>
+						{% endif %}
+						{% if a_image != '' %}
+							<img class="mb-4 -m -t" src="{{a_image}}"/>
+						{% endif %}
+						{{entry.contentText}}
+					</div>
+					<div class="col-12 col-lg-6 -d -t {{hasForm}}">
+						{% if a_image != '' %}
+							<div class="square-image electrical" style="background-image: url({{a_image}})"></div>
+						{% endif %}
+					</div>
+				</div>
+			</div>
+		</div>
 
-        {% if entry.faqToDisplay|length %}
-            <div class="pt-10 pb-10 grey">
-                <div class="sm-container">
-                    <div class="row">
-                        <div class="col-12">
-                            {% include('parts/faq_accordion') with { 'faqs': entry.faqToDisplay.all() } %}
-                        </div>
-                    </div>
-                </div>
-            </div>
-        {% endif %}
+		{% if entry.contentBlock|length %}
+			<div class="pt-10 pb-10">
+				<div class="container">
+					{% for oneblock in entry.contentBlock %}
+						{% include('parts/contentblock') with { 'oneblock': oneblock } %}
+					{% endfor %}
+				</div>
+			</div>
+		{% endif %}
 
-        {% if entry.includedServices|length %}
-            <div class="pt-10">
-                <div class="container">
-                    {% if entry.sectionHeader2 != '' %}
-                        <h2 class="big-heading black">
-                            {{entry.sectionHeader2|striptags('<br>')|raw}}
-                        </h2>
-                    {% endif %}
-                    {% include('parts/included_services') with {'items':entry.includedServices.all()} %}
-                </div>
-            </div>
-        {% endif %}
+		{% if entry.faqToDisplay|length %}
+			<div class="pt-10 pb-10 grey">
+				<div class="sm-container">
+					<div class="row">
+						<div class="col-12">
+							{% include('parts/faq_accordion') with { 'faqs': entry.faqToDisplay.all() } %}
+						</div>
+					</div>
+				</div>
+			</div>
+		{% endif %}
 
-        {% if entry.portfolioToDisplay|length %}
-            <div class="container pt-10">
-                {% if entry.portfolioSectionHeader != '' %}
-                    <h1 class="big-heading black">{{entry.portfolioSectionHeader|striptags('<br>')|raw}}</h1>
-                {% endif %}
-                {% include('parts/portfolio_grid') with {'items':entry.portfolioToDisplay} %}
-            </div>
-        {% endif %}
+		{% if entry.includedServices|length %}
+			<div class="pt-10">
+				<div class="container">
+					{% if entry.sectionHeader2 != '' %}
+						<h2 class="big-heading black">
+							{{entry.sectionHeader2|striptags('<br>')|raw}}
+						</h2>
+					{% endif %}
+					{% include('parts/included_services') with {'items':entry.includedServices.all()} %}
+				</div>
+			</div>
+		{% endif %}
 
-        {% if entry.bottomFormType == 'type1' %}
-            {% include('parts/bottomFormType1') %}
-        {% else %}
-            {% include('parts/bottomFormType2') %}
-        {% endif %}
-    </div>
+		{% if entry.portfolioToDisplay|length %}
+			<div class="container pt-10">
+				{% if entry.portfolioSectionHeader != '' %}
+					<h1 class="big-heading black">{{entry.portfolioSectionHeader|striptags('<br>')|raw}}</h1>
+				{% endif %}
+				{% include('parts/portfolio_grid') with {'items':entry.portfolioToDisplay} %}
+			</div>
+		{% endif %}
+
+		{% if entry.bottomFormType == 'type1' %}
+			{% include('parts/bottomFormType1') %}
+		{% else %}
+			{% include('parts/bottomFormType2') %}
+		{% endif %}
+	</div>
 {% endblock %}
