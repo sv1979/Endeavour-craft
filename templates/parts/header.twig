@@ -3,10 +3,21 @@
     {% set active_link = activeLink %} 
 {% endif %}
 
+{% set show_rc_link = false %}
+{% if (activeLink is defined) %}
+    {% if (activeLink == 'property-managers' or activeLink == 'construction') %}
+        {% set show_rc_link = true %}
+    {% endif %}
+{% endif %}
+
 <div class="mobile-header scroll">
     <a href="/" class="logo"></a>
     <div class="nav-buttons">
-        <a class="green-btn show-modal" data-toggle="modal" data-target="#myModal">Free quote</a>
+        {% if show_rc_link %}
+            <a class="green-btn show-modal" data-toggle="modal" data-target="#rcModal">REQUEST CALL BACK</a>
+        {% else %}
+            <a class="green-btn show-modal" data-toggle="modal" data-target="#myModal">Free quote</a>
+        {% endif %}       
         <div class="nav-icon toggle-nav"></div>
     </div>
 </div>
@@ -40,7 +51,11 @@
             </ul>
             <div class="modal-buttons">
                 <a class="outline-btn" href="tel:{{ contactData.phoneNumber|replace({' ': '', '(':'', ')': ''}) }}">{{contactData.phoneNumber}}</a>
-                <a class="green-btn" data-toggle="modal" data-target="#myModal">Free quote</a>
+                {% if show_rc_link %}
+                    <a class="green-btn" data-toggle="modal" data-target="#rcModal">REQUEST CALL BACK</a>
+                {% else %}
+                    <a class="green-btn" data-toggle="modal" data-target="#myModal">FREE QUOTE</a>
+                {% endif %}               
             </div>
         </div>
     </div>

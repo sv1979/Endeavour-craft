@@ -1,12 +1,12 @@
 <!-- Menu Dropdown -->
 <div class="popup">
-    <div class="popup-inner">
-        <div id="tab-wrapper">
-            {% include('parts/menus') %}
-        </div>
-        <div class="pseudo-fade"></div>
-    </div>
-    <div class="close-form"></div>
+	<div class="popup-inner">
+		<div id="tab-wrapper">
+			{% include('parts/menus') %}
+		</div>
+		<div class="pseudo-fade"></div>
+	</div>
+	<div class="close-form"></div>
 </div>
 <!-- Menu Dropdown ends-->
 <!-- Quote Modal -->
@@ -16,34 +16,58 @@
     .all() %}
 
 <div class="modal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-content">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true"><img src="images/close.svg" alt=""></span>
-        </button>
-        <h2 class="heading">Free Quote</h2>
-        <form method="post" id="freeQuotePopupForm" class="quote-form free ajaxForm" action="" accept-charset="UTF-8">
+	<div class="modal-content">
+		<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			<span aria-hidden="true"><img src="images/close.svg" alt=""></span>
+		</button>
+		<h2 class="heading">Free Quote</h2>
+		<form method="post" id="freeQuotePopupForm" class="quote-form free ajaxForm" action="" accept-charset="UTF-8">
+			{{ csrfInput() }}
+			<input type="hidden" name="message[formName]" value="{{formId}}">
+			<input type="hidden" name="action" value="contact-form/send">
+			<div class="input-row">
+				<input name="fromName" type="text" placeholder="Your Name">
+				<input name="message[Phone]" type="text" placeholder="Your Phone">
+			</div>
+			<div class="input-row">
+				<input name="fromEmail" type="text" placeholder="Your Email">
+				<input name="message[Address]" type="text" placeholder="Property Address">
+			</div>
+			<select name="message[Service]" class="custom-select" id="inputGroupSelect01">
+				<option selected disabled>Select your Services</option>
+				{% for service in servicesQuery %}
+					<option value="{{ service.title }}">{{ service.title }}</option>
+				{% endfor %}
+			</select>
+			<textarea name="message[body]" type="text" rows="1" placeholder="Additional Info"></textarea>
+			<div class="success">Submission successful</div>
+			<div class="fail">Submission failed</div>
+			<button type="submit" class="green-btn">Submit</button>
+		</form>
+	</div>
+</div>
+<!-- Quote Modal ends -->
+
+<!-- Request callback Popup Form -->
+{% set formId = 'Request callback Popup Form' %}
+<div class="modal" id="rcModal" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-content">
+		<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			<span aria-hidden="true"><img src="images/close.svg" alt=""></span>
+		</button>
+		<h2 class="heading">Request a Callback</h2>
+		<form method="post" id="freeQuotePopupForm" class="quote-form free ajaxForm"  action="" accept-charset="UTF-8">
             {{ csrfInput() }}
             <input type="hidden" name="message[formName]" value="{{formId}}">
             <input type="hidden" name="action" value="contact-form/send">
-            <div class="input-row">
-                <input name="fromName" type="text" placeholder="Your Name">
-                <input name="message[Phone]" type="text" placeholder="Your Phone">
-            </div>
-            <div class="input-row">
-                <input name="fromEmail" type="text" placeholder="Your Email">
-                <input name="message[Address]" type="text" placeholder="Property Address">
-            </div>
-            <select name="message[Service]" class="custom-select" id="inputGroupSelect01">
-                <option selected disabled>Select your Services</option>
-                {% for service in servicesQuery %}
-                    <option value="{{ service.title }}">{{ service.title }}</option>
-                {% endfor %}
-            </select>
-            <textarea name="message[body]" type="text" rows="1" placeholder="Additional Info"></textarea>
+
+            <input name="fromName" type="text" placeholder="Your Name">
+			<input name="fromEmail" type="text" placeholder="Your Email">
+			<input name="message[Phone]" type="text" placeholder="Your Phone">
             <div class="success">Submission successful</div>
-            <div class="fail">Submission failed</div>
-            <button type="submit" class="green-btn">Submit</button>
-        </form>
-    </div>
+			<div class="fail">Submission failed</div>
+			<button type="submit" class="green-btn">Submit</button>
+		</form>
+	</div>
 </div>
-<!-- Quote Modal ends -->
+<!-- Request callback Popup Form ends -->
