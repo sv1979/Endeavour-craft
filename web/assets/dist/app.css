@@ -12596,6 +12596,12 @@ p {
   }
 }
 
+@media only screen and (min-width: 991px) {
+  .about-feature .noimage .about-text {
+    max-width: 100%;
+  }
+}
+
 .about-feature .about-text {
   margin-top: 0px;
 }
